@@ -3,7 +3,7 @@
 A list of habits :
 
 - Running
-- Weigth Lifting
+- Weight Lifting
 - Reading
 
 
@@ -13,7 +13,7 @@ A habit:
 - Streak
 - ShowedUp days count
 - Missed days count
-- Time 
+- Total Time performed minutes
 
 
 This utility will have four functionality:
@@ -26,9 +26,9 @@ This utility will have four functionality:
 
 How to start Tracking ?
 
-- node main.js add "Jogging"
-- node main.js track "Reading" showedUp 20
-- node main.js track "Jogging" missed
+- node main.js add "Jogging" "07 may 2023"
+- node main.js track "Reading" "performed/showedUp" 20
+- node main.js track "Jogging" "missed"
 
 
 How to see progress ?
@@ -49,9 +49,9 @@ How to see progress ?
 
   Activity: Reading
   StartDate: 27 april 2023
-  Streak: 10
-  ShowedUp: 10
-  Missed: 3
-  Time: 260 mins
+  Streak: 10 (days)
+  ShowedUp: 10 (days)
+  Missed: 3 (days)
+  Time: 260 (minutes)
 
 ```
