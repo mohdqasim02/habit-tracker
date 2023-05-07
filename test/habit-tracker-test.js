@@ -7,6 +7,7 @@ describe("habit-tracker", function() {
 
   describe("add", function() {
     it("should give a new habit", function() {
+      const actual = habits.add("Running", "07 may 2023");
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
@@ -16,36 +17,34 @@ describe("habit-tracker", function() {
         time: 0,
       };
 
-      habits.add("Running", "07 may 2023");
-      deepStrictEqual(habits.progress("Running"), expected);
+      deepStrictEqual(actual, expected);
     });
   });
 
   describe("track", function() {
-    it("should give a new habit", function() {
+    it("should add today's record to the respective habit", function() {
+      const actual = habits.track("Running", "showedUp", 30);
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
         streak: 1,
         showedUp: 1,
-        missed: 1,
+        missed: 0,
         time: 30,
       };
 
-      habits.track("Running", "missed");
-      habits.track("Running", "showedUp", 30);
-      deepStrictEqual(habits.progress("Running"), expected);
+      deepStrictEqual(actual, expected);
     });
   });
 
   describe("progress", function() {
-    it("should give a new habit", function() {
+    it("should give report of a habit", function() {
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
         streak: 1,
         showedUp: 1,
-        missed: 1,
+        missed: 0,
         time: 30,
       };
 
