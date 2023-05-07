@@ -33,13 +33,13 @@ How to start Tracking ?
 
 How to see progress ?
 
-- node main.js showAll
+- node main.js activities
 
-"Running" 
-"Jogging"
-"Reading"
+Running 
+Jogging
+Reading
 
-- node main.js showProgress Reading
+- node main.js progress Reading
 
 Activity: Reading
 StartDate: 27 april 2023
