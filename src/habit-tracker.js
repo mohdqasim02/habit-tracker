@@ -10,7 +10,7 @@ const add = function(activity, startDate) {
     time: 0,
   };
 
-  return this[activity]; 
+  return progress.call(this, activity);
 };
 
 const track = function(activity, action, time) {
@@ -25,7 +25,7 @@ const track = function(activity, action, time) {
     habit.time += +time;
   }
 
-  return habit;
+  return progress.call(this, activity);
 };
 
 const get = function() {
