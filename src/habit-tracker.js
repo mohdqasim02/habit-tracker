@@ -9,6 +9,8 @@ const add = function(activity, startDate) {
     missed: 0,
     time: 0,
   };
+
+  return progress.call(this, activity);
 };
 
 const track = function(activity, action, time) {
@@ -17,12 +19,17 @@ const track = function(activity, action, time) {
   if(action === "missed") {
     habit.missed += 1;
     habit.streak = 0;
-    return;
+  } else {
+    habit.showedUp += 1;
+    habit.streak += 1;
+    habit.time += +time;
   }
 
-  habit.showedUp += 1;
-  habit.streak += 1;
-  habit.time += time;
+  return progress.call(this, activity);
+};
+
+const get = function() {
+  return this;
 };
 
 const progress = function(activity) {
@@ -40,8 +47,8 @@ const initialize = function(habitsContent) {
     add: add.bind(habits),
     save: save.bind(habits),
     track: track.bind(habits),
+    activities: get.bind(habits),
     progress: progress.bind(habits),
-    activities: Object.keys(habits),
   };
 };
 
