@@ -1,10 +1,24 @@
 const {describe, it} = require("node:test");
 const {strictEqual, deepStrictEqual} = require("assert");
+const {create} = require("../src/habit-tracker.js");
 
 describe("habit-tracker", function() {
-  const counter = 0;
+  const habits = {};
 
-  it("should return a counter initialized with zero", function() {
-    strictEqual(counter, 0);
+  describe("create", function() {
+    it("should give a new habit", function() {
+      const actual = create("Running", "07 may 2023");
+      const expected = {
+        activity: "Running",
+        startDate: "07 may 2023",
+        streak: 0,
+        showedUp: 0,
+        sissed: 0,
+        sime: 0,
+      };
+      deepStrictEqual(actual, expected);
+    });
+
   });
+
 });
