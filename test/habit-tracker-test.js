@@ -1,11 +1,12 @@
 const {describe, it} = require("node:test");
 const {strictEqual, deepStrictEqual} = require("assert");
-const {create, track, progress} = require("../src/habit-tracker.js");
+const {initialize} = require("../src/habit-tracker.js");
 
 describe("habit-tracker", function() {
-  describe("create", function() {
+  const habits = initialize("{}");
+
+  describe("add", function() {
     it("should give a new habit", function() {
-      const actual = create("Running", "07 may 2023");
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
@@ -15,13 +16,13 @@ describe("habit-tracker", function() {
         time: 0,
       };
 
-      deepStrictEqual(actual, expected);
+      habits.add("Running", "07 may 2023");
+      deepStrictEqual(habits.progress("Running"), expected);
     });
   });
 
   describe("track", function() {
     it("should give a new habit", function() {
-      const habit = create("Running", "07 may 2023");
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
@@ -31,25 +32,24 @@ describe("habit-tracker", function() {
         time: 30,
       };
 
-      track(habit, "missed");
-      track(habit, "showedUp", 30);
-      deepStrictEqual(habit, expected);
+      habits.track("Running", "missed");
+      habits.track("Running", "showedUp", 30);
+      deepStrictEqual(habits.progress("Running"), expected);
     });
   });
 
   describe("progress", function() {
     it("should give a new habit", function() {
-      const habit = create("Running", "07 may 2023");
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
-        streak: 0,
-        showedUp: 0,
-        missed: 0,
-        time: 0,
+        streak: 1,
+        showedUp: 1,
+        missed: 1,
+        time: 30,
       };
 
-      deepStrictEqual(progress(habit), expected);
+      deepStrictEqual(habits.progress("Running"), expected);
     });
   });
 });
