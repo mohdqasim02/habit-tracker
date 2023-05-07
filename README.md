@@ -35,15 +35,23 @@ How to see progress ?
 
 - node main.js activities
 
-Running 
-Jogging
-Reading
+```
+
+  Running 
+  Jogging
+  Reading
+
+```
 
 - node main.js progress Reading
 
-Activity: Reading
-StartDate: 27 april 2023
-Streak: 10
-ShowedUp: 10
-Missed: 3
-Time: 260 mins
+```
+
+  Activity: Reading
+  StartDate: 27 april 2023
+  Streak: 10
+  ShowedUp: 10
+  Missed: 3
+  Time: 260 mins
+
+```
