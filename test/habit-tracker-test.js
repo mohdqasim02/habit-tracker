@@ -1,6 +1,6 @@
 const {describe, it} = require("node:test");
 const {strictEqual, deepStrictEqual} = require("assert");
-const {create, track} = require("../src/habit-tracker.js");
+const {create, track, progress} = require("../src/habit-tracker.js");
 
 describe("habit-tracker", function() {
   describe("create", function() {
@@ -22,9 +22,6 @@ describe("habit-tracker", function() {
   describe("track", function() {
     it("should give a new habit", function() {
       const habit = create("Running", "07 may 2023");
-      track(habit, "missed");
-      track(habit, "showedUp", 30);
-
       const expected = {
         activity: "Running",
         startDate: "07 may 2023",
@@ -33,9 +30,26 @@ describe("habit-tracker", function() {
         missed: 1,
         time: 30,
       };
+
+      track(habit, "missed");
+      track(habit, "showedUp", 30);
       deepStrictEqual(habit, expected);
     });
-
   });
 
+  describe("progress", function() {
+    it("should give a new habit", function() {
+      const habit = create("Running", "07 may 2023");
+      const expected = {
+        activity: "Running",
+        startDate: "07 may 2023",
+        streak: 0,
+        showedUp: 0,
+        missed: 0,
+        time: 0,
+      };
+
+      deepStrictEqual(progress(habit), expected);
+    });
+  });
 });

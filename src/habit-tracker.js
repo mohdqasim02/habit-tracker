@@ -21,5 +21,10 @@ const track = function(habit, action, time) {
   habit.time += time;
 };
 
+const progress = function(habit) {
+  return habit;
+};
+
 exports.track = track;
 exports.create = create;
+exports.progress = progress;
