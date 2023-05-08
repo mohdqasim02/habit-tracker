@@ -1,1 +1,10 @@
-{"Reading":{"activity":"Reading","startDate":"07 may 2023","streak":0,"showedUp":6,"missed":1,"time":100},"Jogging":{"activity":"Jogging","startDate":"07 may 2023","streak":0,"showedUp":0,"missed":0,"time":0},"Exercise":{"activity":"Exercise","startDate":"07 may 2023","streak":0,"showedUp":0,"missed":0,"time":0}}
+{
+  "Running": {
+    "activity": "Running",
+    "startDate": "07 may 2023",
+    "streak": 0,
+    "showedUp": 0,
+    "missed": 0,
+    "time": 0
+  }
+}

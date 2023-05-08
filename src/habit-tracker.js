@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 const add = function(activity, startDate) {
   this[activity] = {
     activity,
@@ -29,30 +27,27 @@ const track = function(activity, action, time) {
 };
 
 const get = function() {
-  return this;
+  return {...this};
+};
+
+const activities = function() {
+  return Object.keys(this);
 };
 
 const progress = function(activity) {
-  return this[activity];
-};
-
-const save = function() {
-  fs.writeFileSync("./resources/habits.json", JSON.stringify(this));
+  return {...this[activity]};
 };
 
 const initialize = function(habitsContent) {
-  const habits = JSON.parse(habitsContent.trim());
+  const habitsData = JSON.parse(habitsContent.trim());
 
   return {
-    add: add.bind(habits),
-    save: save.bind(habits),
-    track: track.bind(habits),
-    activities: get.bind(habits),
-    progress: progress.bind(habits),
+    get: get.bind(habitsData);
+    add: add.bind(habitsData);
+    track: track.bind(habitsData);
+    progress: progress.bind(habitsData);
+    activities: activities.bind(habitsData);
   };
 };
 
-exports.add = add;
-exports.track = track;
-exports.progress = progress;
 exports.initialize = initialize;
