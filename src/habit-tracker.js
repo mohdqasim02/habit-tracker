@@ -42,11 +42,11 @@ const initialize = function(habitsContent) {
   const habitsData = JSON.parse(habitsContent.trim());
 
   return {
-    get: get.bind(habitsData);
-    add: add.bind(habitsData);
-    track: track.bind(habitsData);
-    progress: progress.bind(habitsData);
-    activities: activities.bind(habitsData);
+    get: get.bind(habitsData),
+    add: add.bind(habitsData),
+    track: track.bind(habitsData),
+    progress: progress.bind(habitsData),
+    activities: activities.bind(habitsData)
   };
 };
 
