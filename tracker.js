@@ -2,7 +2,8 @@ const fs = require("fs");
 const {initialize} = require("./src/habit-tracker.js");
 
 const isValidCommand = function(program, command) {
-  return Object.keys(program).includes(command);
+  const methods = ['add', 'track', 'progress', 'get', 'activities'];
+  return methods.includes(command);
 }
 
 const main = function([command, activity, ...args]) {
@@ -16,7 +17,7 @@ const main = function([command, activity, ...args]) {
 
   const progress = tracker[command](activity, ...args);
   console.table(progress);
-  fs.writeFileSync("./resources/tracker.json", JSON.stringify(tracker.get(), null, 2));
+  fs.writeFileSync("./resources/habits.json", JSON.stringify(tracker.habits, null, 2));
 };
 
 main(process.argv.slice(2));

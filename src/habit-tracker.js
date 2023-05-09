@@ -1,6 +1,6 @@
 class Tracker {
-  constructor(habits = {}) {
-    this.habits = habits;
+  constructor(habits) {
+    this.habits = {...habits};
   }
 
   add(activity, startDate) {
@@ -48,4 +48,4 @@ const initialize = function(habits) {
   return new Tracker(habits);
 };
 
-exports.initialize = initialize;
+exports.initialize = initialize;  
