@@ -7,16 +7,16 @@ const isValidCommand = function(program, command) {
 
 const main = function([command, activity, ...args]) {
   const habitsContent = fs.readFileSync("./resources/habits.json", "utf-8");
-  const habits = initialize(habitsContent);
+  const tracker = initialize(JSON.parse(habitsContent));
 
-  if(!isValidCommand(habits, command)) {
+  if(!isValidCommand(tracker, command)) {
     console.log(`tracker: Not a valid command : ${command}`);
     return;
   }
 
-  const progress = habits[command](activity, ...args);
+  const progress = tracker[command](activity, ...args);
   console.table(progress);
-  fs.writeFileSync("./resources/habits.json", JSON.stringify(habits.get(), null, 2));
+  fs.writeFileSync("./resources/tracker.json", JSON.stringify(tracker.get(), null, 2));
 };
 
 main(process.argv.slice(2));
