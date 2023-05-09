@@ -31,7 +31,7 @@ class Tracker {
     return habit;
   };
 
-  get() {
+  list() {
     return {...this.habits};
   };
 

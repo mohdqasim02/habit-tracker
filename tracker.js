@@ -2,7 +2,7 @@ const fs = require("fs");
 const {initialize} = require("./src/habit-tracker.js");
 
 const isValidCommand = function(program, command) {
-  const methods = ['add', 'track', 'progress', 'get', 'activities'];
+  const methods = ['add', 'track', 'progress', 'lists', 'activities'];
   return methods.includes(command);
 }
 
