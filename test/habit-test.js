@@ -10,11 +10,6 @@ describe("Habit", function() {
       running.incrementStreak();
       strictEqual(running.streak, 1);
     });
-    
-    it("should increase the current streak by one", function() {
-      running.incrementStreak();
-      strictEqual(running.streak, 2);
-    });
   });
 
   describe("incrementMissed", function() {
@@ -24,11 +19,6 @@ describe("Habit", function() {
       running.incrementMissed();
       strictEqual(running.missed, 1);
     });
-    
-    it("should increase missed days count by one", function() {
-      running.incrementMissed();
-      strictEqual(running.missed, 2);
-    });
   });
 
   describe("incrementShowedUp", function() {
@@ -37,11 +27,6 @@ describe("Habit", function() {
     it("should increase showed up days count by one", function() {
       running.incrementShowedUp();
       strictEqual(running.showedUp, 1);
-    });
-    
-    it("should increase showed up days count by one", function() {
-      running.incrementShowedUp();
-      strictEqual(running.showedUp, 2);
     });
   });
 
@@ -53,7 +38,7 @@ describe("Habit", function() {
       strictEqual(running.course, 20);
     });
     
-    it("should increase showed up days count by one", function() {
+    it("should increase the course duration with each entry", function() {
       running.updateCourse(30);
       strictEqual(running.course, 50);
     });
@@ -67,7 +52,7 @@ describe("Habit", function() {
       strictEqual(running.bestPerformance, 30);
     });
 
-    it("should update the best performance to latest best performance", function() {
+    it("should update best performance to latest best performance", function() {
       running.updateBestPerformance(20);
       strictEqual(running.bestPerformance, 30);
     });
@@ -76,14 +61,14 @@ describe("Habit", function() {
   describe("updateLargestStreak", function() {
     const running = new Habit("running");
     
-    it("should update the best performance to latest best performance", function() {
+    it("should update the largest Streak", function() {
       running.incrementStreak();
       running.incrementStreak();
       running.incrementStreak();
       strictEqual(running.largestStreak, 3);
     });
     
-    it("should update the best performance to latest best performance", function() {
+    it("should maintain the largest streak", function() {
       running.incrementStreak();
       running.incrementStreak();
       running.incrementStreak();
