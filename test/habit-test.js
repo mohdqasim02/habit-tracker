@@ -1,79 +1,38 @@
 const { describe, it } = require("node:test");
-const { strictEqual } = require("assert");
+const { deepStrictEqual } = require("assert");
 const { Habit } = require("../src/habit");
+const { isDeepStrictEqual } = require("util");
 
 describe("Habit", function() {
-  describe("incrementStreak", function() {
-    const running = new Habit("running");
-    
-    it("should increase the current streak by one", function() {
-      running.incrementStreak();
-      strictEqual(running.streak, 1);
+  describe("bestPractice", function() {
+    it("should be able to determine best performance till today", function() {
+      const running = new Habit("running");
+      const expected = {
+          timeStamp: 'Thu May 11 2023',
+          presence: true,
+          duration: 30
+      }
+      
+      running.entry(true, 20);
+      running.entry(true, 30);
+      deepStrictEqual(running.bestPractice(), expected);
     });
   });
-
-  describe("incrementMissed", function() {
-    const running = new Habit("running");
-
-    it("should increase missed days count by one", function() {
-      running.incrementMissed();
-      strictEqual(running.missed, 1);
-    });
-  });
-
-  describe("incrementShowedUp", function() {
-    const running = new Habit("running");
-
-    it("should increase showed up days count by one", function() {
-      running.incrementShowedUp();
-      strictEqual(running.showedUp, 1);
-    });
-  });
-
-  describe("updateCourse", function() {
-    const running = new Habit("running");
-
-    it("should accumulate the course in mins over given time", function() {
-      running.updateCourse(20);
-      strictEqual(running.course, 20);
-    });
-    
-    it("should increase the course duration with each entry", function() {
-      running.updateCourse(30);
-      strictEqual(running.course, 50);
-    });
-  });
-
-  describe("updateBestPerformace", function() {
-    const running = new Habit("running");
-
-    it("should update the best performance to latest best performance", function() {
-      running.updateBestPerformance(30);
-      strictEqual(running.bestPerformance, 30);
-    });
-
-    it("should update best performance to latest best performance", function() {
-      running.updateBestPerformance(20);
-      strictEqual(running.bestPerformance, 30);
-    });
-  });
-
-  describe("updateLargestStreak", function() {
-    const running = new Habit("running");
-    
-    it("should update the largest Streak", function() {
-      running.incrementStreak();
-      running.incrementStreak();
-      running.incrementStreak();
-      strictEqual(running.largestStreak, 3);
-    });
-    
-    it("should maintain the largest streak", function() {
-      running.incrementStreak();
-      running.incrementStreak();
-      running.incrementStreak();
-      running.incrementMissed();
-      strictEqual(running.largestStreak, 6);
+  
+  describe("streak", function() {
+    it("should be able to determine largest streak and the current streak", function() {
+      const running = new Habit("running");
+      const expected = {
+        current: 1,
+        largest: 3
+      }
+      
+      running.entry(true, 30);
+      running.entry(true, 20);
+      running.entry(true, 30);
+      running.entry(false);
+      running.entry(true, 30);
+      isDeepStrictEqual(running.streak(), expected);
     });
   });
 });

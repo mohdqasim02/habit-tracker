@@ -1,40 +1,39 @@
 class Habit {
   constructor(activity) {
+    this.course = [];
     this.activity = activity;
     this.startDate = (new Date()).toDateString();
-    this.course = 0;
-    this.streak = 0;
-    this.missed = 0;
-    this.showedUp = 0;
-    this.largestStreak = 0;
-    this.bestPerformance = 0;
-  };
+  }
+  
+  entry(presence, duration) {
+    const today = {
+      presence,
+      duration,
+      timeStamp: (new Date()).toDateString(),
+    }
 
-  updateLargestStreak() {
-    this.largestStreak = Math.max(this.largestStreak, this.streak);
+    this.course.push(today);
   }
 
-  updateBestPerformance(duration) {
-    this.bestPerformance = Math.max(this.bestPerformance, duration);
+  streak() {
+    const initialStreak = { current: 0, largest: 0};
+
+    return this.course.reduce(function(streak, day) {
+      if(day.presence) {
+        streak.current += 1;
+      } else {
+        streak.current = 0;
+      }
+      streak.largest = Math.max(streak.current, streak.largest);
+      
+      return streak;
+    }, initialStreak);
   }
 
-  incrementStreak() {
-    this.streak += 1;
-    this.updateLargestStreak();
-  }
-
-  incrementMissed() {
-    this.missed += 1;
-    this.streak = 0;
-  }
-
-  incrementShowedUp() {
-    this.showedUp += 1;
-  }
-
-  updateCourse(duration) {
-    this.updateBestPerformance(duration);
-    this.course += duration;
+  bestPractice() {
+    return this.course.reduce(function(best, day) {
+      return best.duration > day.duration ? best : day;
+    });
   }
 }
 
