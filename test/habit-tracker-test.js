@@ -48,7 +48,7 @@ describe("Tracker", function() {
       
       const actual = tracker.habits["Running"].course;
       const expected = [{
-        accomplished: "yes",
+        accomplished: true,
         duration: 30,
         timeStamp: (new Date()).toDateString(),
       }]
@@ -67,17 +67,17 @@ describe("Tracker", function() {
       
       const actual = tracker.progress("Running");
       const expected = [{
-        accomplished: "yes",
+        accomplished: true,
         duration: 30,
         timeStamp: (new Date()).toDateString(),
       },
       {
-        accomplished: "yes",
+        accomplished: true,
         duration: 20,
         timeStamp: (new Date()).toDateString(),
       },
       {
-        accomplished: "yes",
+        accomplished: true,
         duration: 10,
         timeStamp: (new Date()).toDateString(),
       },

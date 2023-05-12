@@ -48,7 +48,7 @@ class Tracker {
     let message = '    Usage of tracker.js:';
     message += '\n -> add activityName';
     message += '\n -> remove activityName';
-    message += '\n -> track activityName accomplished(y/n) duration(in mins)';
+    message += '\n -> track activityName accomplished(yes/no) duration(in mins)';
     message += '\n -> progress activityName';
     message += '\n -> activities';
     message += '\n -> list';

@@ -12,7 +12,7 @@ describe("Habit", function() {
 
       const expected = {
         duration: 30,
-        accomplished: 'yes',
+        accomplished: true,
         timeStamp: (new Date()).toDateString()
       }
       

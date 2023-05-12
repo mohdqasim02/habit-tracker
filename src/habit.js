@@ -7,7 +7,7 @@ class Habit {
   
   entry(accomplished, duration) {
     const today = {
-      accomplished,
+      accomplished: accomplished === 'yes',
       duration,
       timeStamp: (new Date()).toDateString(),
     }
