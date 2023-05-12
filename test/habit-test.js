@@ -7,14 +7,15 @@ describe("Habit", function() {
   describe("bestPractice", function() {
     it("should be able to determine best performance till today", function() {
       const running = new Habit("running");
+      running.entry("yes", 20);
+      running.entry("yes", 30);
+
       const expected = {
-          timeStamp: 'Thu May 11 2023',
-          presence: true,
-          duration: 30
+        duration: 30,
+        accomplished: 'yes',
+        timeStamp: (new Date()).toDateString()
       }
       
-      running.entry(true, 20);
-      running.entry(true, 30);
       deepStrictEqual(running.bestPractice(), expected);
     });
   });

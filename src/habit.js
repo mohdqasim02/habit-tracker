@@ -1,13 +1,13 @@
 class Habit {
-  constructor(activity) {
-    this.course = [];
-    this.activity = activity;
-    this.startDate = (new Date()).toDateString();
+  constructor(activity, habit = {}) {
+    this.course = habit.course || []; // []
+    this.activity = habit.activity || activity; // "Running"
+    this.startDate = habit.startDate || (new Date()).toDateString(); // "Thu May 12 2023"
   }
   
-  entry(presence, duration) {
+  entry(accomplished, duration) {
     const today = {
-      presence,
+      accomplished,
       duration,
       timeStamp: (new Date()).toDateString(),
     }

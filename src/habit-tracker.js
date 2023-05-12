@@ -1,34 +1,22 @@
+const { Habit } = require("./habit.js");
+
 class Tracker {
   constructor(habits) {
-    this.habits = {...habits};
+    this.habits = habits;
   }
 
-  add(activity, startDate) {
-    this.habits[activity] = {
+  add(activity) {
+    const habit = {
       activity,
-      startDate,
-      streak: 0,
-      showedUp: 0,
-      missed: 0,
-      time: 0,
+      course: [],
+      startDate: (new Date()).toDateString()
     };
-
-    return this.habits[activity];
+    this.habits[activity] = new Habit(activity, habit);
   };
 
-  track(activity, action, time) {
+  track(activity, presence, duration) {
     const habit = this.habits[activity];
-
-    if(action === "missed") {
-      habit.missed += 1;
-      habit.streak = 0;
-    } else {
-      habit.showedUp += 1;
-      habit.streak += 1;
-      habit.time += +time;
-    }
-
-    return habit;
+    habit.entry(presence, duration);
   };
 
   list() {
@@ -40,11 +28,15 @@ class Tracker {
   };
 
   progress(activity) {
-    return {...this.habits[activity]};
+    return [...this.habits[activity].course];
   };
 }
 
-const initialize = function(habits) {
+const initialize = function(habitsDetails) {
+  const habits = Object.fromEntries(Object.entries(habitsDetails)
+    .map(function([activityName, activityData]) {
+      return [activityName, new Habit(activityName, activityData)];
+    }));
   return new Tracker(habits);
 };
 

@@ -1,8 +1,8 @@
 const fs = require("fs");
 const {initialize} = require("./src/habit-tracker.js");
 
-const isValidCommand = function(program, command) {
-  const methods = ['add', 'track', 'progress', 'lists', 'activities'];
+const isValidCommand = function(command) {
+  const methods = ['add', 'track', 'progress', 'list', 'activities'];
   return methods.includes(command);
 }
 
@@ -10,7 +10,7 @@ const main = function([command, activity, ...args]) {
   const habitsContent = fs.readFileSync("./resources/habits.json", "utf-8");
   const tracker = initialize(JSON.parse(habitsContent));
 
-  if(!isValidCommand(tracker, command)) {
+  if(!isValidCommand(command)) {
     console.log(`tracker: Not a valid command : ${command}`);
     return;
   }
