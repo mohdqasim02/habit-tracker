@@ -6,15 +6,14 @@ class Tracker {
   }
 
   add(activity) {
-    const habit = {
-      activity,
-      course: [],
-      startDate: (new Date()).toDateString()
-    };
-
-    this.habits[activity] = new Habit(activity, habit);
+    this.habits[activity] = new Habit(activity);
     return `${activity} added for tracking`;
   };
+
+  remove(activity) {
+    delete this.habits[activity];
+    return `${activity} removed from tracking`;
+  }
 
   track(activity, presence, duration) {
     let message = `Today's log added`;
@@ -48,6 +47,7 @@ class Tracker {
   usage() {
     let message = '    Usage of tracker.js:';
     message += '\n -> add activityName';
+    message += '\n -> remove activityName';
     message += '\n -> track activityName accomplished(y/n) duration(in mins)';
     message += '\n -> progress activityName';
     message += '\n -> activities';
@@ -69,7 +69,7 @@ const initialize = function(habitsDetails) {
     .map(function([activityName, activityData]) {
       return [activityName, new Habit(activityName, activityData)];
     }));
-    
+
   return new Tracker(habits);
 };
 

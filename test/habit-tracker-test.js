@@ -22,10 +22,23 @@ describe("Tracker", function() {
       
       const actual = tracker.habits["Running"];
       const expected = new Habit("Running");
-
+      
       deepStrictEqual(actual, expected);
     });
   });
+  
+  describe("remove", function() {
+    it("should remove a habit from tracking", function() {
+      const tracker = initialize({});
+      tracker.add("Running");
+      tracker.remove("Running");
+      
+      const actual = tracker.habits["Running"];
+      const expected = undefined;
+
+      deepStrictEqual(actual, expected);
+    });
+  })
 
   describe("track", function() {
     it("should add today's record to the respective habit and start a streak", function() {
