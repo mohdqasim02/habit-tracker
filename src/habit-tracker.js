@@ -11,13 +11,23 @@ class Tracker {
       course: [],
       startDate: (new Date()).toDateString()
     };
+
     this.habits[activity] = new Habit(activity, habit);
+    return `${activity} added for tracking`;
   };
 
   track(activity, presence, duration) {
-    const habit = this.habits[activity];
-    habit.entry(presence, duration);
-  };
+    let message = `Today's log added`;
+
+    try{
+      const habit = this.habits[activity];
+      habit.entry(presence, duration);
+    } catch(e) {
+      message = this.errorMsg(activity);
+    };
+
+    return message;
+  }
 
   list() {
     return {...this.habits};
@@ -28,8 +38,30 @@ class Tracker {
   };
 
   progress(activity) {
-    return [...this.habits[activity].course];
+    try {
+      return [...this.habits[activity].course];
+    } catch(e) {
+      return this.errorMsg(activity);
+    };
   };
+  
+  usage() {
+    let message = '    Usage of tracker.js:';
+    message += '\n -> add activityName';
+    message += '\n -> track activityName accomplished(y/n) duration(in mins)';
+    message += '\n -> progress activityName';
+    message += '\n -> activities';
+    message += '\n -> list';
+    
+    return message;
+  }
+  
+  errorMsg(activity) {
+    let error = ` ${activity} habit not found, first add activity to track`
+    error +=  `\n -> usage : node tracker.js add ${activity}`;
+
+    return error;
+  }
 }
 
 const initialize = function(habitsDetails) {
@@ -37,6 +69,7 @@ const initialize = function(habitsDetails) {
     .map(function([activityName, activityData]) {
       return [activityName, new Habit(activityName, activityData)];
     }));
+    
   return new Tracker(habits);
 };
 
