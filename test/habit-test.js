@@ -33,7 +33,6 @@ describe("Habit", function () {
       running.entry("yes", 30);
       running.entry();
       running.entry("yes", 30);
-      console.log(running);
       isDeepStrictEqual(running.streak(), expected);
     });
   });
