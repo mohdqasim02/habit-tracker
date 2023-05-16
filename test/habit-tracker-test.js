@@ -51,7 +51,7 @@ describe("Tracker", function () {
         {
           accomplished: true,
           duration: 30,
-          timeStamp: new Date().toDateString(),
+          timeStamp: Date.parse(new Date()),
         },
       ];
 
@@ -72,21 +72,21 @@ describe("Tracker", function () {
         {
           accomplished: true,
           duration: 30,
-          timeStamp: new Date().toDateString(),
+          timeStamp: Date.parse(new Date()),
         },
         {
           accomplished: true,
           duration: 20,
-          timeStamp: new Date().toDateString(),
+          timeStamp: Date.parse(new Date()),
         },
         {
           accomplished: true,
           duration: 10,
-          timeStamp: new Date().toDateString(),
+          timeStamp: Date.parse(new Date()),
         },
       ];
 
-      deepStrictEqual(tracker.progress("Running"), expected);
+      deepStrictEqual(actual, expected);
     });
   });
 

@@ -4,19 +4,15 @@ const { Habit } = require("../src/habit");
 const { isDeepStrictEqual } = require("util");
 
 describe("Habit", function () {
-  describe("bestPractice", function () {
+  describe("longestDuration", function () {
     it("should be able to determine best performance till today", function () {
       const running = new Habit("running");
       running.entry("yes", 20);
       running.entry("yes", 30);
 
-      const expected = {
-        duration: 30,
-        accomplished: true,
-        timeStamp: new Date().toDateString(),
-      };
+      const expected = running.course[1];
 
-      deepStrictEqual(running.bestPractice(), expected);
+      deepStrictEqual(running.longestDuration(), expected);
     });
   });
 

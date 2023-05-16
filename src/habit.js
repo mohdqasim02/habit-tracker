@@ -9,7 +9,7 @@ class Habit {
     const today = {
       accomplished: accomplished === "yes",
       duration,
-      timeStamp: new Date().toDateString(),
+      timeStamp: Date.parse(new Date()),
     };
 
     this.course.push(today);
@@ -26,7 +26,7 @@ class Habit {
     }, initialStreak);
   }
 
-  bestPractice() {
+  longestDuration() {
     return this.course.reduce(function (best, day) {
       return best.duration > day.duration ? best : day;
     });
