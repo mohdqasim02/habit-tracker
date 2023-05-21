@@ -3,6 +3,7 @@ class Habit {
     this.course = habit.course || []; // []
     this.activity = habit.activity || activity; // "Running"
     this.startDate = habit.startDate || new Date().toDateString(); // "Thu May 12 2023"
+    this.streaks = [];
   }
 
   entry(accomplished, duration) {
@@ -13,18 +14,57 @@ class Habit {
     };
 
     this.course.push(today);
+    this.streaks = this.streak();
   }
 
   streak() {
-    const initialStreak = { current: 0, largest: 0 };
+    const streaks = [];
 
-    return this.course.reduce(function (streak, day) {
-      streak.current = day.accomplished ? streak.current + 1 : 0;
-      streak.largest = Math.max(streak.current, streak.largest);
+    this.course.reduce((isOnStreak, day) => {
+      const attempted = day.accomplished;
+      const date = day.timeStamp;
 
-      return streak;
-    }, initialStreak);
+      if (!isOnStreak && attempted) {
+        return this.#startNewStreak(streaks, date);
+      }
+
+      if (isOnStreak && !attempted) {
+        return this.#endStreak(streaks, date);
+      }
+
+      return isOnStreak;
+    }, false);
+
+    return streaks;
+
+
   }
+
+  #endStreak(streaks, date) {
+    const lastStreak = streaks.at(-1);
+    const daysPassed = (date - lastStreak.start) / (1000 * 60 * 60 * 24);
+
+    lastStreak.end = date;
+    lastStreak.streak = Math.floor(daysPassed);
+
+    return false;
+  }
+
+  #startNewStreak(streaks, date) {
+    streaks.push({ start: date });
+    return true;
+  }
+
+  currentStreak() {
+    return this.streaks.at(-1);
+  }
+
+  longestStreak() {
+    return this.streaks.reduce((longest, streak) => {
+      return longest.days >= streak.days ? longest : streak;
+    });
+  }
+
 
   longestDuration() {
     return this.course.reduce(function (best, day) {
