@@ -6,21 +6,21 @@ const { Habit } = require("../src/habit.js");
 describe("Tracker", function () {
   describe("add", function () {
     it("should add a new habit", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
 
-      const actual = tracker.habits["Running"];
+      const actual = tracker.getHabit("Running");
       const expected = new Habit("Running");
 
       deepStrictEqual(actual, expected);
     });
 
     it("should reset a habit if an existing habit is added again", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
       tracker.add("Running");
 
-      const actual = tracker.habits["Running"];
+      const actual = tracker.getHabit("Running");
       const expected = new Habit("Running");
 
       deepStrictEqual(actual, expected);
@@ -29,7 +29,7 @@ describe("Tracker", function () {
 
   describe("remove", function () {
     it("should remove a habit from tracking", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
       tracker.remove("Running");
 
@@ -42,11 +42,11 @@ describe("Tracker", function () {
 
   describe("track", function () {
     it("should add today's record to the respective habit and start a streak", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
       tracker.track("Running", "yes", 30);
 
-      const actual = tracker.habits["Running"].course;
+      const actual = tracker.getHabit("Running").course;
       const expected = [
         {
           accomplished: true,
@@ -61,7 +61,7 @@ describe("Tracker", function () {
 
   describe("progress", function () {
     it("should give report of a habit", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
       tracker.track("Running", "yes", 30);
       tracker.track("Running", "yes", 20);
@@ -92,7 +92,7 @@ describe("Tracker", function () {
 
   describe("list", function () {
     it("should be a able to get all the activities that are being tracked", function () {
-      const tracker = initialize({});
+      const tracker = initialize([]);
       tracker.add("Running");
       tracker.add("Jogging");
       tracker.add("Sleeping");
