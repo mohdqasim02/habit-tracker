@@ -35,14 +35,7 @@ class Habit {
     return false;
   }
 
-  entry(accomplished, duration, otherDetails) {
-    const todaysLog = this.#createLog(accomplished, duration, otherDetails);
-
-    this.#course.push(todaysLog);
-    this.#streaks = this.streak();
-  }
-
-  streak() {
+  #streak() {
     const streaks = [];
 
     this.#course.reduce((isOnStreak, day) => {
@@ -61,6 +54,13 @@ class Habit {
     }, false);
 
     return streaks;
+  }
+
+  entry(accomplished, duration, otherDetails) {
+    const todaysLog = this.#createLog(accomplished, duration, otherDetails);
+
+    this.#course.push(todaysLog);
+    this.#streaks = this.#streak();
   }
 
   currentStreak() {

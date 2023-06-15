@@ -26,7 +26,7 @@ describe("Habit", function () {
       running.entry("yes", 30);
       running.entry();
       running.entry("yes", 30);
-      deepStrictEqual(running.streak(), expected);
+      deepStrictEqual(running.streaks, expected);
     });
   });
 
