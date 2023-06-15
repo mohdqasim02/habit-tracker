@@ -1,13 +1,13 @@
 class Habit {
   #course;
   #streaks;
-  #activity;
   #startDate;
+  #activityName;
 
   constructor(activity, habit = {}) {
     this.#course = habit.course || [];
     this.#streaks = habit.streak || [];
-    this.#activity = habit.activity || activity;
+    this.#activityName = habit.activityName || activity;
     this.#startDate = habit.startDate || new Date().toDateString();
   }
 
@@ -84,7 +84,7 @@ class Habit {
   }
 
   get activityName() {
-    return this.#activity;
+    return this.#activityName;
   }
 
   get startDate() {

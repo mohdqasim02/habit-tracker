@@ -68,11 +68,12 @@ class Tracker {
 
   get habits() {
     return Object.values(this.#habits).map((habit) => {
+
       return {
         streaks: habit.streaks,
         course: habit.course,
         startDate: habit.startDate,
-        activity: habit.activityName
+        activityName: habit.activityName
       };
     });
   }
