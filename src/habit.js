@@ -13,7 +13,7 @@ class Habit {
 
   #createLog(accomplished, duration, otherDetails) {
     return {
-      accomplished: accomplished === "yes",
+      accomplished: accomplished === "YES",
       duration,
       timeStamp: Date.parse(new Date()),
       ...otherDetails,

@@ -9,6 +9,14 @@ const parseHabits = (habitsDetails) => {
   }));
 }
 
+const parseArgs = (args) => {
+  return args.map(arg => {
+    if (+arg || +arg === 0)
+      return +arg;
+    return arg.toUpperCase()
+  });
+};
+
 const parseCommand = (command) => {
   const commands = ["add", "remove", "track", "progress", "list"];
 
@@ -18,5 +26,6 @@ const parseCommand = (command) => {
   return { commandToExecute: command };
 }
 
+exports.parseArgs = parseArgs;
 exports.parseHabits = parseHabits;
 exports.parseCommand = parseCommand;

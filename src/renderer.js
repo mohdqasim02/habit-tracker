@@ -14,8 +14,8 @@ class Renderer {
   }
 
   renderDay(day) {
-    return Object.values(day).map(value => {
-      if (typeof value === 'number')
+    return Object.values(day).map((value, index) => {
+      if (index === 2)
         return new Date(value).toDateString();
       return value;
     }).join(" | ");
