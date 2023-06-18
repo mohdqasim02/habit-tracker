@@ -1,3 +1,11 @@
+
+const validateStreakEnd = (date) => {
+  console.log(date);
+  if (date === 'Invalid Date')
+    return 'ongoing';
+  return date;
+}
+
 class Renderer {
   #outputStream;
 
@@ -24,7 +32,7 @@ class Renderer {
   renderStreak(streak) {
     const start = new Date(streak.start).toDateString();
     const end = new Date(streak.end).toDateString();
-    const str = "start: " + start + "\t" + "end: " + end;
+    const str = "start: " + start + "\t" + "end: " + validateStreakEnd(end);
     return str;
   }
 
