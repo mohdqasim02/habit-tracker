@@ -13,9 +13,9 @@ const parseCommand = (command) => {
   const commands = ["add", "remove", "track", "progress", "list"];
 
   if (!commands.includes(command))
-    throw new Error(`tracker: Not a valid command : ${command}\n`);
+    return { error: new Error(`tracker: Not a valid command : ${command}\n`) };
 
-  return command;
+  return { commandToExecute: command };
 }
 
 exports.parseHabits = parseHabits;
