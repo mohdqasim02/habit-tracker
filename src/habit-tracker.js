@@ -2,96 +2,80 @@ const { Habit } = require("./habit.js");
 
 class Tracker {
   #habits;
+  #renderer;
 
-  constructor(habits) {
+  constructor(habits, renderer) {
     this.#habits = habits;
+    this.#renderer = renderer;
   }
 
   add(activity) {
+    if (activity === undefined)
+      throw new Error(`tracker: Invalid activity`);
+
     this.#habits[activity] = new Habit(activity);
-    return `${activity} added for tracking`;
+    this.#renderer.display(`${activity} added for tracking`);
   }
 
   remove(activity) {
+    if (activity === undefined)
+      throw new Error(`tracker: Invalid activity`);
+
     delete this.#habits[activity];
-    return `${activity} removed from tracking`;
+    this.#renderer.display(`${activity} removed from tracking`);
   }
 
   track(activity, presence, duration) {
-    let message = `Today's log added`;
+    if (activity === undefined)
+      throw new Error(`Tracker: Invalid Activity`);
 
-    try {
-      const habit = this.#habits[activity];
-      habit.entry(presence, duration);
-    } catch (e) {
-      message = this.errorMsg(activity);
-    }
-
-    return message;
+    this.#habits[activity].entry(presence, duration);
+    this.#renderer.display(`Today's log added`);
   }
 
   list() {
-    return Object.keys(this.#habits);
+    this.#renderer.renderHabits(Object.keys(this.#habits));
   }
 
   progress(activity) {
-    try {
-      return this.#habits[activity].course;
-    } catch (e) {
-      return this.errorMsg(activity);
-    }
+    if (activity === undefined)
+      throw new Error(`Tracker: Invalid Activity`);
+
+    this.#renderer.renderProgress(this.#getHabit(activity));
   }
 
   usage() {
     let message =
       "    Usage of tracker.js:" +
-      "\n" +
-      " -> add [activity]" +
-      "\n" +
-      " -> remove [activity]" +
-      "\n" +
-      " -> track [activity] [accomplished: yes/no] [duration in mins]" +
-      "\n" +
-      " -> progress [activity]" +
-      "\n" +
-      " -> list";
+      "\n" + " -> add [activity]" +
+      "\n" + " -> remove [activity]" +
+      "\n" + " -> track [activity] [accomplished: yes/no] [duration in mins]" +
+      "\n" + " -> progress [activity]" +
+      "\n" + " -> list";
 
     return message;
   }
 
   errorMsg(activity) {
-    let error = ` ${activity} habit not found, first add activity to track`;
-    error += `\n -> usage : node tracker.js add ${activity}`;
-
-    return error;
+    return ` ${activity} habit not found, first add activity to track`;
   }
 
   get habits() {
-    return Object.values(this.#habits).map((habit) => {
-
-      return {
-        streaks: habit.streaks,
-        course: habit.course,
-        startDate: habit.startDate,
-        activityName: habit.activityName
-      };
+    return Object.values(this.#habits).map(habit => {
+      return this.#getHabit(habit.activityName);
     });
   }
 
-  getHabit(activityName) {
-    return this.#habits[activityName];
+  #getHabit(activityName) {
+    const habit = this.#habits[activityName];
+
+    return {
+      course: habit.course,
+      streaks: habit.streaks,
+      startDate: habit.startDate,
+      activityName: habit.activityName
+    };
   }
 }
 
-const initialize = function (habitsDetails) {
-  const habits = Object.fromEntries(
-    habitsDetails.map((habit) => {
-      const activityName = habit.activityName;
-      return [activityName, new Habit(activityName, habit)];
-    })
-  );
-
-  return new Tracker(habits);
-};
-
-exports.initialize = initialize;
+exports.Tracker = Tracker;
