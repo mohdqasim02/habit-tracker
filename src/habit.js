@@ -6,7 +6,7 @@ class Habit {
 
   constructor(activity, habit = {}) {
     this.#course = habit.course || [];
-    this.#streaks = habit.streak || [];
+    this.#streaks = habit.streaks || [];
     this.#activityName = habit.activityName || activity;
     this.#startDate = habit.startDate || new Date().toDateString();
   }
