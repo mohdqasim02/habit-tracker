@@ -1,6 +1,4 @@
-
 const validateStreakEnd = (date) => {
-  console.log(date);
   if (date === 'Invalid Date')
     return 'ongoing';
   return date;
@@ -21,24 +19,32 @@ class Renderer {
     this.display(habits.join("\n"));
   }
 
-  renderDay(day) {
-    return Object.values(day).map((value, index) => {
-      if (index === 2)
-        return new Date(value).toDateString();
-      return value;
-    }).join(" | ");
+  renderDayFeilds(day) {
+    return Object.keys(day).join("|");
+  }
+
+  renderDay({ accomplished, duration, timeStamp }) {
+    const presence = accomplished ? "✅" : "❌";
+    const date = new Date(timeStamp).toDateString();
+
+    return [presence, (duration || '00'), date].join(" | ");
   }
 
   renderStreak(streak) {
     const start = new Date(streak.start).toDateString();
     const end = new Date(streak.end).toDateString();
-    const str = "start: " + start + "\t" + "end: " + validateStreakEnd(end);
+    const str = "start: " + start +
+      "\t" + "end: " + validateStreakEnd(end) +
+      "\t" + "days: " + (streak.streak === undefined ? 'present' : streak.streak);
+
     return str;
   }
 
   renderProgress(habit) {
-    const message = new Date(habit.startDate).toDateString() +
-      "\n" + habit.activityName.toUpperCase() +
+    const message = "StartDate: " +
+      new Date(habit.startDate).toDateString() +
+      "\n" + "Habit: " + habit.activityName +
+      "\n" + this.renderDayFeilds(habit.course[0]) +
       "\n" + habit.course.map(this.renderDay).join("\n") +
       "\n" + habit.streaks.map(this.renderStreak).join("\n");
 
