@@ -20,7 +20,7 @@ class Renderer {
   }
 
   renderDayFeilds(day) {
-    return Object.keys(day).join("|");
+    return Object.keys(day).join(" | ");
   }
 
   renderDay({ accomplished, duration, timeStamp }) {
@@ -30,12 +30,16 @@ class Renderer {
     return [presence, (duration || '00'), date].join(" | ");
   }
 
+  renderStreakFeilds() {
+    return "start | end | days";
+  }
+
   renderStreak(streak) {
     const start = new Date(streak.start).toDateString();
     const end = new Date(streak.end).toDateString();
-    const str = "start: " + start +
-      "\t" + "end: " + validateStreakEnd(end) +
-      "\t" + "days: " + (streak.streak === undefined ? 'present' : streak.streak);
+    const str = start +
+      "\t" + "| " + validateStreakEnd(end) +
+      "\t" + "| " + (streak.streak === undefined ? 'present' : streak.streak);
 
     return str;
   }
@@ -46,6 +50,7 @@ class Renderer {
       "\n" + "Habit: " + habit.activityName +
       "\n" + this.renderDayFeilds(habit.course[0]) +
       "\n" + habit.course.map(this.renderDay).join("\n") +
+      "\n" + this.renderStreakFeilds() +
       "\n" + habit.streaks.map(this.renderStreak).join("\n");
 
     this.display(message);
