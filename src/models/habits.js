@@ -37,7 +37,7 @@ class Habits {
     return habit.data();
   }
 
-  get habits() {
+  get habitsData() {
     return Object.values(this.#habits).map(habit => habit.data());
   }
 }
