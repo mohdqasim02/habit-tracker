@@ -28,6 +28,19 @@ describe('Habit-Handlers', () => {
     });
   });
 
+  describe('GET /habits/:activity', () => {
+    it('should serve a specific habit', (_, done) => {
+      habits.add('Running');
+
+      request(app)
+        .get('/habits/Running')
+        .expect(200)
+        .expect('Content-type', /json/)
+        .expect(JSON.stringify(habits.getHabit('Running')))
+        .end(done);
+    });
+  });
+
   describe('POST /habits', () => {
     it('should add a habit', (_, done) => {
       request(app)

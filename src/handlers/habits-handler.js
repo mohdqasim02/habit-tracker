@@ -3,6 +3,13 @@ const serveHabits = (req, res) => {
   res.json(habits.habitsData);
 };
 
+const serveHabit = (req, res) => {
+  const { habits } = req.app.context;
+  const { activity } = req.params;
+
+  res.json(habits.getHabit(activity));
+};
+
 const addHabit = (req, res) => {
   const { habits, storage } = req.app.context;
   const { activity } = req.body;
@@ -53,7 +60,8 @@ const trackHabit = (req, res) => {
 
 module.exports = {
   addHabit,
-  removeHabit,
+  serveHabit,
   serveHabits,
+  removeHabit,
   trackHabit
 };
