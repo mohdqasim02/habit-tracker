@@ -42,4 +42,12 @@ class Habits {
   }
 }
 
-module.exports = Habits;
+const createHabits = (habitsData) => {
+  const habits = habitsData.map((habit) =>
+    [habit.activity, new Habit(habit.activity, habit)]
+  );
+
+  return new Habits(Object.fromEntries(habits));
+};
+
+module.exports = { createHabits };

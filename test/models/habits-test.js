@@ -1,12 +1,12 @@
 const { describe, it } = require('node:test');
 const { deepStrictEqual, strictEqual } = require('assert');
 const Habit = require('../../src/models/habit');
-const Habits = require('../../src/models/habits');
+const { createHabits } = require('../../src/models/habits');
 
-describe('Tracker', function () {
+describe('Tracker', () => {
   describe('add', () => {
     it('should add a new habit', () => {
-      const habits = new Habits();
+      const habits = createHabits([]);
       const running = new Habit('Running');
 
       strictEqual(habits.add('Running'), true);
@@ -14,7 +14,7 @@ describe('Tracker', function () {
     });
 
     it('should reset a habit if an existing habit is added again', () => {
-      const habits = new Habits;
+      const habits = createHabits([]);
       const running = new Habit('Running');
 
       strictEqual(habits.add('Running'), true);
@@ -26,7 +26,7 @@ describe('Tracker', function () {
 
   describe('remove', () => {
     it('should remove a habit from tracking', () => {
-      const habits = new Habits;
+      const habits = createHabits([]);
       const running = new Habit('Running');
 
       strictEqual(habits.add('Running'), true);
@@ -39,7 +39,7 @@ describe('Tracker', function () {
 
   describe('track', () => {
     it('should add a record to the respective habit and start a streak', () => {
-      const habits = new Habits();
+      const habits = createHabits([]);
 
       strictEqual(habits.add('Running'), true);
       strictEqual(habits.track('Running', 'yes', 30), true);
@@ -48,7 +48,7 @@ describe('Tracker', function () {
 
   describe('list', () => {
     it('should give all the activities that are being tracked', () => {
-      const habits = new Habits();
+      const habits = createHabits([]);
 
       habits.add('Running');
       habits.add('Jogging');

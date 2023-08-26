@@ -12,6 +12,7 @@
     "coverage",
     "tests",
     "src/renderer.js",
-    "src/parser.js"
+    "src/parser.js",
+    "src/storage.js"
   ]
 }
