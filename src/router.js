@@ -1,6 +1,6 @@
 const {
-  serveHabits
-} = require("./handlers/habits-handler");
+  serveHabits, addHabit
+} = require('./handlers/habits-handler');
 
 const PATHS = {
   HABITS: '/habits',
@@ -9,6 +9,7 @@ const PATHS = {
 
 const createRoutes = (app) => {
   app.get(PATHS.HABITS, serveHabits);
+  app.post(PATHS.HABITS, addHabit);
 };
 
 module.exports = { createRoutes };
