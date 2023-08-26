@@ -13,6 +13,7 @@ class Habits {
   }
 
   remove(activity) {
+
     delete this.#habits[activity];
     return true;
   }
