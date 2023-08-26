@@ -1,7 +1,4 @@
-TODO.txt
-NOTES
-*.swp
-*.swo
-DS*
-NERD*
-resources/
+node_modules/
+storage/
+coverage/
+.nyc_output/
