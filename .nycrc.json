@@ -11,7 +11,7 @@
     ".eslintrc.js",
     "coverage",
     "tests",
-    "src/renderer.js",
+    "public",
     "src/storage.js"
   ]
 }

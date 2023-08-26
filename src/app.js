@@ -10,7 +10,7 @@ const createApp = (habits, storage) => {
   app.use(express.urlencoded());
   app.use(logRequest);
   createRoutes(app);
-  app.use(express.static('resources'));
+  app.use(express.static('public'));
 
   return app;
 };
