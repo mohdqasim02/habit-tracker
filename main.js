@@ -1,10 +1,10 @@
-const fs = require("fs");
-const { Renderer } = require("./src/renderer.js");
-const { Tracker } = require("./src/habit-tracker.js");
-const { parseCommand, parseHabits, parseArgs } = require("./src/parser.js");
+const fs = require('fs');
+const { Renderer } = require('./src/renderer.js');
+const { Tracker } = require('./src/habit-tracker.js');
+const { parseCommand, parseHabits, parseArgs } = require('./src/parser.js');
 
 const main = function ([command, ...argsToCommand]) {
-  const habitsContent = fs.readFileSync("./resources/habits.json", "utf-8");
+  const habitsContent = fs.readFileSync('./resources/habits.json', 'utf-8');
 
   const habits = parseHabits(habitsContent);
   const tracker = new Tracker(habits, new Renderer(process.stdout));
@@ -23,7 +23,7 @@ const main = function ([command, ...argsToCommand]) {
     console.error(err.message);
   }
 
-  fs.writeFileSync("./resources/habits.json", JSON.stringify(tracker.habits, null, 2));
+  fs.writeFileSync('./resources/habits.json', JSON.stringify(tracker.habits, null, 2));
 };
 
 main(process.argv.slice(2));

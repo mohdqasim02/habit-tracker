@@ -7,9 +7,11 @@
     "json"
   ],
   "exclude": [
-    "server.js",
+    "main.js",
     ".eslintrc.js",
     "coverage",
-    "tests"
+    "tests",
+    "src/renderer.js",
+    "src/parser.js"
   ]
 }

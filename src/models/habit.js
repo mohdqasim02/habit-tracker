@@ -1,23 +1,14 @@
 class Habit {
   #course;
   #streaks;
+  #activity;
   #startDate;
-  #activityName;
 
   constructor(activity, habit = {}) {
     this.#course = habit.course || [];
     this.#streaks = habit.streaks || [];
-    this.#activityName = habit.activityName || activity;
-    this.#startDate = habit.startDate || new Date().toDateString();
-  }
-
-  #createLog(accomplished, duration, otherDetails) {
-    return {
-      accomplished: accomplished === "YES",
-      duration,
-      timeStamp: Date.parse(new Date()),
-      ...otherDetails,
-    };
+    this.#activity = habit.activity || activity;
+    this.#startDate = habit.startDate || new Date();
   }
 
   #startNewStreak(streaks, date) {
@@ -27,11 +18,7 @@ class Habit {
 
   #endStreak(streaks, date) {
     const lastStreak = streaks.at(-1);
-    const daysPassed = (date - lastStreak.start) / (1000 * 60 * 60 * 24);
-
     lastStreak.end = date;
-    lastStreak.streak = Math.floor(daysPassed);
-
     return false;
   }
 
@@ -57,9 +44,14 @@ class Habit {
   }
 
   entry(accomplished, duration, otherDetails) {
-    const todaysLog = this.#createLog(accomplished, duration, otherDetails);
+    const log = {
+      accomplished,
+      timeStamp: new Date(),
+      duration: accomplished ? duration : 0,
+      ...otherDetails,
+    };
 
-    this.#course.push(todaysLog);
+    this.#course.push(log);
     this.#streaks = this.#streak();
   }
 
@@ -74,17 +66,26 @@ class Habit {
   }
 
   longestDuration() {
-    return this.#course.reduce((best, day) => {
-      return best.duration > day.duration ? best : day;
+    return this.#course.reduce((longest, day) => {
+      return longest.duration > day.duration ? longest : day;
     });
+  }
+
+  data() {
+    return {
+      course: this.course,
+      streaks: this.streaks,
+      activity: this.activity,
+      startDate: this.startDate,
+    };
   }
 
   get course() {
     return [...this.#course];
   }
 
-  get activityName() {
-    return this.#activityName;
+  get activity() {
+    return this.#activity;
   }
 
   get startDate() {
@@ -96,4 +97,4 @@ class Habit {
   }
 }
 
-exports.Habit = Habit;
+module.exports = Habit;
