@@ -2,7 +2,7 @@ const createHabit = (habit) => {
   const habitAnchor = document.createElement('a');
 
   habitAnchor.innerText = habit;
-  habitAnchor.setAttribute('href', `/habits/pages/${habit}`);
+  habitAnchor.setAttribute('href', `/pages/habit.html?activity=${habit}`);
 
   return habitAnchor;
 };

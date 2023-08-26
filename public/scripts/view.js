@@ -28,19 +28,6 @@ class View {
     this.#listeners[event] = listener;
   }
 
-  onAddHabit(cb) {
-    const newHabitForm = document.querySelector('#start-habit');
-    const activityInput = document.querySelector('#activity-name');
-
-    newHabitForm.onsubmit = (event) => {
-      event.preventDefault();
-
-      if (activityInput.value !== '')
-        cb(activityInput.value);
-      activityInput.value = '';
-    };
-  }
-
   #createHabit({ course, streaks, activity, startDate }) {
     const article = generateComponent([
       'article', [
@@ -54,10 +41,11 @@ class View {
     return article;
   }
 
-  render(habits) {
-    const habitsBox = document.querySelector('#habits');
+  render(habit) {
+    console.log(habit);
+    const habitsBox = document.querySelector('#habit');
 
     [...habitsBox.children].forEach(child => child.remove());
-    habits.forEach(habit => habitsBox.append(this.#createHabit(habit)));
+    habitsBox.append(this.#createHabit(habit));
   }
 }

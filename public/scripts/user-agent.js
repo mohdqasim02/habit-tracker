@@ -7,26 +7,14 @@ class UserAgent {
     this.#habits = habits;
   }
 
-  #getHabitsAndRender() {
-    fetch('/habits')
+  #getHabitAndRender(activity) {
+    fetch(`/habits/${activity}`)
       .then(res => res.json())
       .catch(err => console.error(err.message))
       .then(habits => this.#view.render(habits));
   };
 
-  #addHabit(activity) {
-    fetch('/habits', {
-      method: 'post',
-      body: JSON.stringify({ activity }),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    })
-      .then(_ => this.#getHabitsAndRender());
-  }
-
-  start() {
-    this.#getHabitsAndRender();
-    this.#view.onAddHabit((activity) => this.#addHabit(activity));
+  start(activity) {
+    this.#getHabitAndRender(activity);
   }
 }
