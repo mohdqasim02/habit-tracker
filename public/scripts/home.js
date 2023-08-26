@@ -5,14 +5,21 @@ const createHabit = (habit) => {
   habitAnchor.setAttribute('href', `/habits/pages/${habit}`);
 
   return habitAnchor;
-}
+};
 
 const render = (habits) => {
   const habitsBox = document.querySelector('#habits');
 
   [...habitsBox.children].forEach(child => child.remove());
   habits.forEach(habit => habitsBox.append(createHabit(habit)));
-}
+};
+
+const getHabitsAndRender = () => {
+  fetch('/habits')
+    .then(res => res.json())
+    .catch(err => console.error(err.message))
+    .then(habits => render(habits));
+};
 
 const postHabit = (activity) => {
   fetch('/habits', {
@@ -23,7 +30,7 @@ const postHabit = (activity) => {
     }
   })
     .then(_ => getHabitsAndRender());
-}
+};
 
 const setupAddHabit = () => {
   const newHabitForm = document.querySelector('#start-habit');
@@ -36,13 +43,6 @@ const setupAddHabit = () => {
       postHabit(activityInput.value);
     activityInput.value = '';
   };
-}
-
-const getHabitsAndRender = () => {
-  fetch('/habits')
-    .then(res => res.json())
-    .catch(err => console.error(err.message))
-    .then(habits => render(habits));
 };
 
 const main = () => {

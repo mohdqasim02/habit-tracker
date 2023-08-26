@@ -44,10 +44,10 @@ class View {
   #createHabit({ course, streaks, activity, startDate }) {
     const article = generateComponent([
       'article', [
-        ["div", course],
-        ["div", streaks],
-        ["div", activity],
-        ["div", startDate],
+        ['div', course],
+        ['div', streaks],
+        ['div', activity],
+        ['div', startDate],
       ]
     ]);
 
