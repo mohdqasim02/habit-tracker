@@ -1,6 +1,6 @@
 const serveHabits = (req, res) => {
   const { habits } = req.app.context;
-  res.json(habits.habitsData);
+  res.json(habits.list());
 };
 
 const serveHabit = (req, res) => {
