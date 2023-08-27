@@ -16,33 +16,35 @@ const generateComponent = ([tagName, children, attributes = {}]) => {
 };
 
 class View {
-  #addIcon;
-  #listeners;
-
-  constructor() {
-    this.#listeners = {};
-    this.#addIcon = document.querySelector('#add-icon');
-  }
-
-  on(event, listener) {
-    this.#listeners[event] = listener;
-  }
-
   #createHabit({ course, streaks, activity, startDate }) {
     const article = generateComponent([
       'article', [
-        ['div', course],
-        ['div', streaks],
-        ['div', activity],
-        ['div', startDate],
+        ['div', JSON.stringify(course)],
+        ['div', JSON.stringify(streaks)],
+        ['div', JSON.stringify(activity)],
+        ['div', JSON.stringify(startDate)],
       ]
     ]);
 
     return article;
   }
 
+  onNewEntry(cb) {
+    const entryForm = document.querySelector('#entry-from');
+
+    entryForm.onsubmit = (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(entryForm);
+      const presence = formData.get('presence') === 'on';
+      const duration = parseInt(formData.get('duration'));
+
+      cb({ duration, presence });
+      entryForm.reset();
+    };
+  }
+
   render(habit) {
-    console.log(habit);
     const habitsBox = document.querySelector('#habit');
 
     [...habitsBox.children].forEach(child => child.remove());

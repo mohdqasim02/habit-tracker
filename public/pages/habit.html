@@ -2,7 +2,6 @@
 
 <head>
   <title>Habit-Tracker</title>
-  <link rel="stylesheet" href="/css/style.css">
   <script src="/scripts/view.js"></script>
   <script src="/scripts/user-agent.js"></script>
   <script src="/scripts/habit.js"></script>
@@ -14,6 +13,16 @@
       <a href="/"> back </a>
       <h2 id="activity-name">HUHUH</h2>
     </header>
+    <form id="entry-from">
+      <div>
+        <label for="presence">Accomplished</label>
+        <input type="checkbox" name="presence" id="presence">
+      </div>
+      <div>
+        <input type="number" id="duration" name="duration" placeholder="duration">
+      </div>
+      <input type="submit" value="submit">
+    </form>
     <main id="habit" class="flex-box"></main>
   </div>
 </body>

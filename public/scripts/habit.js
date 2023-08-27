@@ -7,11 +7,11 @@ const parseActivity = () => {
 
 const main = () => {
   const activity = parseActivity();
-  const userAgent = new UserAgent(new View());
+  const userAgent = new UserAgent(new View(), activity);
   const title = document.querySelector('#activity-name');
 
+  userAgent.start();
   title.innerText = activity;
-  userAgent.start(activity);
 };
 
 window.onload = main;

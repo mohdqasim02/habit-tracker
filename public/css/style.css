@@ -72,7 +72,7 @@ select {
   letter-spacing: 0.05em;
   padding: 0.4em 0.5em;
   background-color: transparent;
-  outline-color: hsl(74, 32%, 70%);
+  outline-color: hsl(30, 53%, 64%);
 }
 
 input[type='text'] {
