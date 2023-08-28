@@ -1,0 +1,21 @@
+#entry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+input {
+  border: none;
+  outline: none;
+  border: 1px solid black;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+td {
+  padding: 0.5em 1em;
+}

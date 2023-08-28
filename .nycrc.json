@@ -10,7 +10,7 @@
     "main.js",
     ".eslintrc.js",
     "coverage",
-    "tests",
+    "test",
     "public",
     "src/storage.js"
   ]

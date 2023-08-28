@@ -16,13 +16,41 @@ const generateComponent = ([tagName, children, attributes = {}]) => {
 };
 
 class View {
+  #createCourse(course) {
+    const dayElement = document.createElement('tbody');
+
+    dayElement.append(...course.map((day, index) =>
+      generateComponent(['tr',
+        [['td', `Day-${index + 1}`], ...Object.values(day).map(a => {
+          if (typeof a === "number" || typeof a === "boolean") {
+            return ['td', a];
+          }
+
+          return ['td', new Date(a).toUTCString()];
+        })]
+      ])));
+
+    return dayElement;
+  }
+
+  #createStreak(streaks) {
+    const streakElement = document.createElement('div');
+
+    streakElement.append(...streaks.map(streak =>
+      generateComponent(['tr',
+        Object.values(streak).map(a => ['td', new Date(a).toUTCString()])
+      ])));
+
+    return streakElement;
+  }
+
   #createHabit({ course, streaks, activity, startDate }) {
     const article = generateComponent([
       'article', [
-        ['div', JSON.stringify(course)],
-        ['div', JSON.stringify(streaks)],
-        ['div', JSON.stringify(activity)],
-        ['div', JSON.stringify(startDate)],
+        ['div', `Activity : ${activity}`],
+        ['div', `Start-date : ${new Date(startDate).toDateString()}`],
+        ['table', this.#createCourse(course)],
+        ['div', this.#createStreak(streaks)],
       ]
     ]);
 
@@ -30,7 +58,7 @@ class View {
   }
 
   onNewEntry(cb) {
-    const entryForm = document.querySelector('#entry-from');
+    const entryForm = document.querySelector('#entry-form');
 
     entryForm.onsubmit = (event) => {
       event.preventDefault();
