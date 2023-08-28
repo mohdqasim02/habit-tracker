@@ -3,7 +3,7 @@ const Habit = require('./habit.js');
 class Habits {
   #habits;
 
-  constructor(habits = {}) {
+  constructor(habits) {
     this.#habits = habits;
   }
 

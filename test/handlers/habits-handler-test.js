@@ -58,7 +58,7 @@ describe('Habit-Handlers', () => {
         .delete('/habits')
         .send({ activity: 'Running' })
         .set('Content-type', 'application/json')
-        .expect(201)
+        .expect(204)
         .end(done);
     });
   });

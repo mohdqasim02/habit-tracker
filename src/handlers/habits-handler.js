@@ -33,7 +33,7 @@ const removeHabit = (req, res) => {
 
   if (success) {
     storage.write(habits.habitsData, () => {
-      res.status(201).end();
+      res.status(204).end();
     });
 
     return;
