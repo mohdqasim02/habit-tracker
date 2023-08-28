@@ -22,7 +22,7 @@ class View {
     dayElement.append(...course.map((day, index) =>
       generateComponent(['tr',
         [['td', `Day-${index + 1}`], ...Object.values(day).map(a => {
-          if (typeof a === "number" || typeof a === "boolean") {
+          if (typeof a === 'number' || typeof a === 'boolean') {
             return ['td', a];
           }
 
@@ -34,14 +34,10 @@ class View {
   }
 
   #createStreak(streaks) {
-    const streakElement = document.createElement('div');
+    const { start, end } = streaks.at(-1);
+    const streak = (Date.parse(start) - Date.parse(end)) / 1000 * 60 * 60 * 24;
 
-    streakElement.append(...streaks.map(streak =>
-      generateComponent(['tr',
-        Object.values(streak).map(a => ['td', new Date(a).toUTCString()])
-      ])));
-
-    return streakElement;
+    return generateComponent(['div', `streak : ${streak || 'going'}`]);
   }
 
   #createHabit({ course, streaks, activity, startDate }) {
