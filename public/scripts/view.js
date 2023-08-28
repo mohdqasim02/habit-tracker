@@ -9,35 +9,43 @@ const generateComponent = ([tagName, children, attributes = {}]) => {
     return element;
   }
 
-  if (typeof children === 'object') element.innerHTML = children.innerHTML;
-  else element.innerText = children;
+  if (typeof children === 'object') {
+    element.innerHTML = children.innerHTML;
+    return element;
+  }
 
+  element.innerText = children;
   return element;
 };
 
 class View {
-  #createCourse(course) {
-    const dayElement = document.createElement('tbody');
+  #createCourseElement(course) {
+    const courseBody = course.map(({ timeStamp, duration }, index) =>
+      ['tr', [
+        ['td', `Day-${index + 1}`],
+        ['td', new Date(timeStamp).toLocaleString()],
+        ['td', duration],
+      ]]);
 
-    dayElement.append(...course.map((day, index) =>
-      generateComponent(['tr',
-        [['td', `Day-${index + 1}`], ...Object.values(day).map(a => {
-          if (typeof a === 'number' || typeof a === 'boolean') {
-            return ['td', a];
-          }
+    const courseHead = generateComponent(['tr', [
+      ['th', 'Day'],
+      ['th', 'Timestamp'],
+      ['th', 'Duration'],
+    ]]);
 
-          return ['td', new Date(a).toUTCString()];
-        })]
-      ])));
-
-    return dayElement;
+    return [
+      ['thead', courseHead],
+      ['tbody', courseBody],
+    ];
   }
 
   #createStreak(streaks) {
     const { start, end } = streaks.at(-1);
-    const streak = (Date.parse(start) - Date.parse(end)) / 1000 * 60 * 60 * 24;
+    const miliSecInDay = 1000 * 60 * 60 * 24;
+    const timeDifference = (Date.parse(end) - Date.parse(start)) || 1;
+    const streak = Math.ceil(timeDifference / miliSecInDay);
 
-    return generateComponent(['div', `streak : ${streak || 'going'}`]);
+    return generateComponent(['div', `streak : ${streak}`]);
   }
 
   #createHabit({ course, streaks, activity, startDate }) {
@@ -45,7 +53,7 @@ class View {
       'article', [
         ['div', `Activity : ${activity}`],
         ['div', `Start-date : ${new Date(startDate).toDateString()}`],
-        ['table', this.#createCourse(course)],
+        ['table', this.#createCourseElement(course)],
         ['div', this.#createStreak(streaks)],
       ]
     ]);
