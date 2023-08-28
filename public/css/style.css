@@ -74,7 +74,8 @@ button {
   outline-color: hsl(30, 53%, 64%);
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   flex: 1 0 80%;
   outline: none;
   border-bottom: 2px solid var(--primary-dark);
@@ -86,18 +87,4 @@ input::placeholder {
 
 button:hover {
   cursor: pointer;
-}
-
-#icons {
-  display: none;
-}
-
-@media screen and (max-width:1280px) {
-  * {
-    font-size: 22px;
-  }
-
-  #habits {
-    justify-content: center;
-  }
 }

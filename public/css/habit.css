@@ -4,10 +4,14 @@
   gap: 1em;
 }
 
-input {
-  border: none;
-  outline: none;
-  border: 1px solid black;
+#submit-btn {
+  color: white;
+  background-color: var(--primary-dark);
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#submit-btn:hover {
+  cursor: pointer;
 }
 
 article {
