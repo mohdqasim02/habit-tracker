@@ -9,23 +9,34 @@ const {
   signup,
   signupPage } = require('./handlers/auth-handler');
 
+const attachMiddleware = (app) => {
+  app.use(logRequest);
+  app.use(parseCookies);
+  app.use(express.json());
+  app.use(express.urlencoded());
+};
+
+const attachAuthentication = (app) => {
+  app.get('/css/style.css', (_, res) =>
+    res.sendFile('style.css', { root: 'public/css' }));
+
+  app.get('/css/login.css', (_, res) =>
+    res.sendFile('login.css', { root: 'public/css' }));
+
+  app.get('/signup', signupPage);
+  app.post('/signup', signup);
+  app.get('/login', loginPage);
+  app.post('/login', login);
+  app.use(authenticate);
+};
+
 const createApp = (users, storage) => {
   const app = express();
 
   app.context = { users, storage };
 
-  app.use(logRequest);
-  app.use(parseCookies);
-  app.use(express.json());
-  app.use(express.urlencoded());
-
-  app.get('/signup', signupPage);
-  app.post('/signup', signup);
-
-  app.get('/login', loginPage);
-  app.post('/login', login);
-
-  app.use(authenticate);
+  attachMiddleware(app);
+  attachAuthentication(app);
   createRoutes(app);
   app.use(express.static('public'));
 

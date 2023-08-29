@@ -19,25 +19,21 @@ const generateComponent = ([tagName, children, attributes = {}]) => {
 };
 
 class View {
-  #createCourseElement(course) {
-    console.log(course);
-    const courseBody = course.map(({ timeStamp, duration }, index) =>
-      ['tr', [
-        ['td', `Day-${index + 1}`],
-        ['td', new Date(timeStamp).toLocaleString()],
-        ['td', duration],
-      ]]);
-
-    const courseHead = generateComponent(['tr', [
-      ['th', 'Day'],
+  #createCourseHead() {
+    return generateComponent(['tr', [
+      ['th', 'Practice'],
       ['th', 'Timestamp'],
       ['th', 'Duration'],
     ]]);
+  }
 
-    return [
-      ['thead', courseHead],
-      ['tbody', courseBody],
-    ];
+  #createCourseBody(course) {
+    return course.map(({ timeStamp, duration }, index) =>
+      ['tr', [
+        ['td', `${index + 1}`],
+        ['td', new Date(timeStamp).toLocaleString()],
+        ['td', duration],
+      ]]);
   }
 
   #createStreak(streaks) {
@@ -54,7 +50,10 @@ class View {
       'article', [
         ['div', `Activity : ${activity}`],
         ['div', `Start-date : ${new Date(startDate).toDateString()}`],
-        ['table', this.#createCourseElement(course)],
+        ['table', [
+          ['thead', this.#createCourseHead()],
+          ['tbody', this.#createCourseBody(course)]
+        ]],
         ['div', this.#createStreak(streaks)],
       ]
     ]);
@@ -69,8 +68,8 @@ class View {
       event.preventDefault();
 
       const formData = new FormData(entryForm);
-      const presence = formData.get('presence') === 'on';
-      const duration = parseInt(formData.get('duration'));
+      const duration = parseInt(formData.get('duration') || 0);
+      const presence = duration > 0;
 
       cb({ duration, presence });
       entryForm.reset();

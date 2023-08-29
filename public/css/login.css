@@ -1,15 +1,27 @@
+main {
+  width: 80%;
+}
+
 form {
-  margin-top: 1em;
-  display: grid;
-  width: 480px;
-  gap: 0.75em;
+  width: 30%;
   padding: 1em;
+  flex-direction: column;
+  border-radius: 4px;
   box-shadow: 0 0 3px black;
-  border-radius: 5px;
+}
+
+form input {
+  width: 100%;
 }
 
 input[type="submit"] {
   font-weight: 400;
-  color: white;
+  padding: 0.5em 0;
   background-color: var(--primary-dark);
+}
+
+a {
+  outline: none;
+  color: black;
+  text-decoration: none;
 }

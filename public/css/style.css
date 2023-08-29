@@ -64,7 +64,7 @@ button {
   letter-spacing: 0.05em;
   padding: 0.4em 0.5em;
   background-color: transparent;
-  outline-color: hsl(30, 53%, 64%);
+  outline-color: rgba(0, 0, 0, 0.3);
 }
 
 input[type="text"],
@@ -79,6 +79,8 @@ input::placeholder {
   font-weight: 300;
 }
 
-button:hover {
+button:hover,
+input[type="submit"]:hover {
   cursor: pointer;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
 }
