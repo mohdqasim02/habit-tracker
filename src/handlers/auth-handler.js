@@ -68,10 +68,23 @@ const signup = (req, res) => {
   });
 };
 
+const logout = (req, res) => {
+  res.cookie('name', { maxAge: -1 });
+  res.cookie('password', { maxAge: -1 });
+  res.end();
+};
+
+const username = (req, res) => {
+  const { name } = req.cookies;
+  res.send({ name });
+};
+
 module.exports = {
   authenticate,
   signupPage,
   loginPage,
   signup,
-  login
+  login,
+  logout,
+  username
 };

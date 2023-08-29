@@ -7,7 +7,9 @@ const {
   loginPage,
   login,
   signup,
-  signupPage } = require('./handlers/auth-handler');
+  signupPage,
+  logout,
+  username } = require('./handlers/auth-handler');
 
 const attachMiddleware = (app) => {
   app.use(logRequest);
@@ -27,6 +29,8 @@ const attachAuthentication = (app) => {
   app.post('/signup', signup);
   app.get('/login', loginPage);
   app.post('/login', login);
+  app.post('/logout', logout);
+  app.get('/username', username);
   app.use(authenticate);
 };
 

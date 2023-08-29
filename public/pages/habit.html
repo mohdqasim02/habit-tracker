@@ -4,6 +4,7 @@
   <title>Habit-Tracker</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/habit.css">
+  <script src="/scripts/logout.js"></script>
   <script src="/scripts/view.js"></script>
   <script src="/scripts/user-agent.js"></script>
   <script src="/scripts/habit.js"></script>
@@ -12,9 +13,14 @@
 <body>
   <div id="home-page" class="flex-box">
     <header class="flex-box">
-      <a href="/">
-        << </a>
-          <h2 id="activity-name">HUHUH</h2>
+      <div>
+        <a href="/">Home</a>
+        <h2 id="activity-name">HUHUH</h2>
+      </div>
+      <div id="user-data" class="flex-box">
+        <h4>Welcome, <span id="username"></span></h4>
+        <button id="logout-btn">Logout</button>
+      </div>
     </header>
     <form id="entry-form" class="flex-box">
       <input type="number" id="duration" name="duration" placeholder="duration">

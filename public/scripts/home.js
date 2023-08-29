@@ -46,6 +46,8 @@ const setupAddHabit = () => {
 };
 
 const main = () => {
+  greetUser();
+  setupLogout();
   setupAddHabit();
   getHabitsAndRender();
 };

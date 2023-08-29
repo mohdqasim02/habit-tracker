@@ -6,6 +6,8 @@ const parseActivity = () => {
 };
 
 const main = () => {
+  greetUser();
+  setupLogout();
   const activity = parseActivity();
   const userAgent = new UserAgent(new View(), activity);
   const title = document.querySelector('#activity-name');

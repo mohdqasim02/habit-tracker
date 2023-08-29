@@ -14,6 +14,12 @@
   cursor: pointer;
 }
 
+header>div:first-child {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
 article {
   display: flex;
   flex-direction: column;

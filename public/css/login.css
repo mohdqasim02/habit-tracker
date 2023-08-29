@@ -1,3 +1,7 @@
+#home-page>header {
+  justify-content: center;
+}
+
 main {
   width: 80%;
 }

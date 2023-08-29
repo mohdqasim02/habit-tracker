@@ -29,6 +29,7 @@ body {
 #home-page>header {
   width: 100%;
   padding: 1em;
+  justify-content: space-between;
   background-color: var(--primary-dark);
 }
 
@@ -83,4 +84,8 @@ button:hover,
 input[type="submit"]:hover {
   cursor: pointer;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+
+#logout-btn {
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
