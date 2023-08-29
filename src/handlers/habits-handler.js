@@ -11,12 +11,12 @@ const serveHabit = (req, res) => {
 };
 
 const addHabit = (req, res) => {
-  const { habits, storage } = req.app.context;
+  const { habits, storage, users } = req.app.context;
   const { activity } = req.body;
   const success = habits.add(activity);
 
   if (success) {
-    storage.write(habits.habitsData, () => {
+    storage.write(users.usersData, () => {
       res.status(201).end();
     });
 
@@ -27,12 +27,12 @@ const addHabit = (req, res) => {
 };
 
 const removeHabit = (req, res) => {
-  const { habits, storage } = req.app.context;
+  const { habits, storage, users } = req.app.context;
   const { activity } = req.body;
   const success = habits.remove(activity);
 
   if (success) {
-    storage.write(habits.habitsData, () => {
+    storage.write(users.usersData, () => {
       res.status(201).end();
     });
 
@@ -43,12 +43,12 @@ const removeHabit = (req, res) => {
 };
 
 const trackHabit = (req, res) => {
-  const { habits, storage } = req.app.context;
+  const { habits, storage, users } = req.app.context;
   const { presence, duration } = req.body;
   const success = habits.track(req.params.activity, presence, duration);
 
   if (success) {
-    storage.write(habits.habitsData, () => {
+    storage.write(users.usersData, () => {
       res.status(201).end();
     });
 
