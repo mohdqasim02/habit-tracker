@@ -3,7 +3,7 @@ const { deepStrictEqual, strictEqual } = require('assert');
 const Habit = require('../../src/models/habit');
 const { createHabits } = require('../../src/models/habits');
 
-describe('Tracker', () => {
+describe('Habits', () => {
   describe('add', () => {
     it('should add a new habit', () => {
       const habits = createHabits([]);
