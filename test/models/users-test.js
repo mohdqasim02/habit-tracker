@@ -1,12 +1,12 @@
 const assert = require('assert');
 const { describe, it } = require('node:test');
-const { Users } = require('../../src/models/users');
+const { createUsers } = require('../../src/models/users');
 const { createHabits } = require('../../src/models/habits');
 
 describe('Users', () => {
   describe('add', () => {
     it('should add a new user', () => {
-      const users = new Users();
+      const users = createUsers([]);
       const credentials = {
         name: 'qasim',
         password: '1234'
@@ -19,15 +19,39 @@ describe('Users', () => {
   });
 
   describe('getHabits', () => {
-    it('should respond with the the habits of a particular user', () => {
-      const users = new Users();
+    it('should respond with the habits of a particular user', () => {
+      const credentials = {
+        name: 'qasim',
+        password: '1234',
+        habits: []
+      };
+      const users = createUsers([credentials]);
+
+      users.add(credentials);
+      assert.deepStrictEqual(users.getHabits(credentials), createHabits([]));
+    });
+
+    it('should respond with -1 if the user does not exists', () => {
+      const users = createUsers([]);
       const credentials = {
         name: 'qasim',
         password: '1234'
       };
 
-      users.add(credentials);
-      assert.deepStrictEqual(users.getHabits('qasim'), createHabits([]));
+      assert.deepStrictEqual(users.getHabits(credentials), -1);
+    });
+  });
+
+  describe('usersData', () => {
+    it('should give users data in json format', () => {
+      const credentials = {
+        name: 'qasim',
+        password: '1234',
+        habits: []
+      };
+      const users = createUsers([credentials]);
+
+      assert.deepStrictEqual(users.usersData, [credentials]);
     });
   });
 });

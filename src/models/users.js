@@ -4,31 +4,53 @@ class Users {
   #users;
 
   constructor(users) {
-    this.#users = users || {};
+    this.#users = users;
+  }
+
+  #getUser({ name, password }) {
+    return this.#users.find(user =>
+      user.name === name && user.password === password
+    );
   }
 
   add({ name, password }) {
-    this.#users[name] = {
+    this.#users.push({
       name,
       password,
       habits: createHabits([])
-    };
+    });
   }
 
-  isValid({ name, password }) {
-    if (name in this.#users) {
-      return password === this.#users[name].password;
+  isValid(credentials) {
+    if (this.#getUser(credentials)) {
+      return true;
     }
 
     return false;
   }
 
-  getHabits(name) {
-    const user = this.#users[name];
+  getHabits(credentials) {
+    if (this.isValid(credentials)) {
+      return this.#getUser(credentials).habits;
+    }
 
-    console.log(user);
-    return user.habits;
+    return -1;
+  }
+
+  get usersData() {
+    return this.#users.map(({ name, password, habits }) =>
+      ({ name, password, habits: habits.habitsData }));
   }
 }
 
-module.exports = { Users };
+const createUsers = (usersData) => {
+  const users = usersData.map(({ name, password, habits }) => ({
+    name,
+    password,
+    habits: createHabits(habits)
+  }));
+
+  return new Users(users);
+};
+
+module.exports = { createUsers };
