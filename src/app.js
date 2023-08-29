@@ -1,26 +1,13 @@
 const express = require('express');
 const { createRoutes } = require('./router');
 const { logRequest } = require('./middlewares/logger');
+const { parseCookies } = require('./middlewares/cookies');
 const {
   authenticate,
   loginPage,
   login,
   signup,
   signupPage } = require('./handlers/auth-handler');
-
-const parseCookies = (req, _, next) => {
-  if (!req.headers.cookie) {
-    req.cookies = {};
-    next();
-    return;
-  }
-
-  const { cookie } = req.headers;
-  const keyValuePairs = cookie.split('; ').map((kv) => kv.split('='));
-
-  req.cookies = Object.fromEntries(keyValuePairs);
-  next();
-};
 
 const createApp = (users, storage) => {
   const app = express();
