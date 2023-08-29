@@ -20,6 +20,7 @@ const generateComponent = ([tagName, children, attributes = {}]) => {
 
 class View {
   #createCourseElement(course) {
+    console.log(course);
     const courseBody = course.map(({ timeStamp, duration }, index) =>
       ['tr', [
         ['td', `Day-${index + 1}`],
@@ -40,7 +41,7 @@ class View {
   }
 
   #createStreak(streaks) {
-    const { start, end } = streaks.at(-1);
+    const { start, end } = streaks.at(-1) || {};
     const miliSecInDay = 1000 * 60 * 60 * 24;
     const timeDifference = (Date.parse(end) - Date.parse(start)) || 1;
     const streak = Math.ceil(timeDifference / miliSecInDay);
