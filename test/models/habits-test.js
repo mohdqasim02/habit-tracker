@@ -26,12 +26,15 @@ describe('Habits', () => {
 
   describe('remove', () => {
     it('should remove a habit from tracking', () => {
-      const habits = createHabits([]);
+      const habits = createHabits([{
+        'course': [],
+        'streaks': [],
+        'activity': 'Running',
+        'startDate': new Date(),
+      }]);
       const running = new Habit('Running');
 
-      strictEqual(habits.add('Running'), true);
       deepStrictEqual(habits.getHabit('Running'), running.data());
-
       strictEqual(habits.remove('Running'), true);
       deepStrictEqual(habits.getHabit('Running'), false);
     });
@@ -43,6 +46,7 @@ describe('Habits', () => {
 
       strictEqual(habits.add('Running'), true);
       strictEqual(habits.track('Running', 'yes', 30), true);
+      strictEqual(habits.track('Jogging', 'yes', 30), false);
     });
   });
 

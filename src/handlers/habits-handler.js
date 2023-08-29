@@ -32,8 +32,8 @@ const removeHabit = (req, res) => {
   const success = habits.remove(activity);
 
   if (success) {
-    storage.write(users.usersData, () => {
-      res.status(201).end();
+    storage.write(habits.habitsData, () => {
+      res.status(204).end();
     });
 
     return;

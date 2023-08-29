@@ -63,7 +63,7 @@ describe('Habit-Handlers', () => {
         .set('Cookie', 'name=billa; password=1234')
         .send({ activity: 'Running' })
         .set('Content-type', 'application/json')
-        .expect(201)
+        .expect(204)
         .end(done);
     });
   });
