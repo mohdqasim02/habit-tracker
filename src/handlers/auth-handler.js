@@ -21,7 +21,7 @@ const loginPage = (req, res) => {
   }
 
   res.sendFile('/pages/login.html', {
-    root: 'public'
+    root: 'private'
   });
 };
 
@@ -49,7 +49,7 @@ const signupPage = (req, res) => {
   }
 
   res.sendFile('/pages/signup.html', {
-    root: 'public'
+    root: 'private'
   });
 };
 

@@ -23,7 +23,7 @@ const attachAuthentication = (app) => {
     res.sendFile('style.css', { root: 'public/css' }));
 
   app.get('/css/login.css', (_, res) =>
-    res.sendFile('login.css', { root: 'public/css' }));
+    res.sendFile('login.css', { root: 'private/css' }));
 
   app.get('/signup', signupPage);
   app.post('/signup', signup);
@@ -34,10 +34,10 @@ const attachAuthentication = (app) => {
   app.use(authenticate);
 };
 
-const createApp = (users, storage) => {
+const createApp = (users, storage, readFile) => {
   const app = express();
 
-  app.context = { users, storage };
+  app.context = { users, storage, readFile };
 
   attachMiddleware(app);
   attachAuthentication(app);

@@ -9,7 +9,7 @@ const USERS_FILEPATH = 'storage/user-data.json';
 const main = () => {
   const storage = new Storage(USERS_FILEPATH, fs);
   const users = createUsers(storage.load());
-  const app = createApp(users, storage);
+  const app = createApp(users, storage, fs.readFile);
 
   app.listen(PORT, () =>
     console.log(`App listening at: http://localhost:${PORT}`));
