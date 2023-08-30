@@ -3,7 +3,7 @@ const Storage = require('./src/storage');
 const { createApp } = require('./src/app');
 const { createUsers } = require('./src/models/users');
 
-const PORT = 8000;
+const PORT = 8001;
 const USERS_FILEPATH = 'storage/user-data.json';
 
 const main = () => {
@@ -11,7 +11,8 @@ const main = () => {
   const users = createUsers(storage.load());
   const app = createApp(users, storage);
 
-  app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`App listening at: http://localhost:${PORT}`));
 };
 
 main();
