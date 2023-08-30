@@ -32,7 +32,7 @@ const removeHabit = (req, res) => {
   const success = habits.remove(activity);
 
   if (success) {
-    storage.write(habits.habitsData, () => {
+    storage.write(users.usersData, () => {
       res.status(204).end();
     });
 

@@ -2,14 +2,14 @@ const express = require('express');
 const { createRoutes } = require('./router');
 const { logRequest } = require('./middlewares/logger');
 const { parseCookies } = require('./middlewares/cookies');
+const { signupPage, loginPage } = require('./handlers/file-handler');
 const {
-  authenticate,
-  loginPage,
   login,
   signup,
-  signupPage,
   logout,
-  username } = require('./handlers/auth-handler');
+  username,
+  authenticate,
+} = require('./handlers/auth-handler');
 
 const attachMiddleware = (app) => {
   app.use(logRequest);
@@ -18,20 +18,23 @@ const attachMiddleware = (app) => {
   app.use(express.urlencoded());
 };
 
-const attachAuthentication = (app) => {
+const serveAuthPages = (app) => {
   app.get('/css/style.css', (_, res) =>
     res.sendFile('style.css', { root: 'public/css' }));
 
   app.get('/css/login.css', (_, res) =>
     res.sendFile('login.css', { root: 'private/css' }));
 
-  app.get('/signup', signupPage);
-  app.post('/signup', signup);
   app.get('/login', loginPage);
+  app.get('/signup', signupPage);
+};
+
+const attachAuthentication = (app) => {
   app.post('/login', login);
   app.post('/logout', logout);
-  app.get('/username', username);
+  app.post('/signup', signup);
   app.use(authenticate);
+  app.get('/username', username);
 };
 
 const createApp = (users, storage, readFile) => {
@@ -40,6 +43,7 @@ const createApp = (users, storage, readFile) => {
   app.context = { users, storage, readFile };
 
   attachMiddleware(app);
+  serveAuthPages(app);
   attachAuthentication(app);
   createRoutes(app);
   app.use(express.static('public'));

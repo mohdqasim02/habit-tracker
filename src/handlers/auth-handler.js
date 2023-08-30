@@ -11,20 +11,6 @@ const authenticate = (req, res, next) => {
   res.redirect(303, '/login');
 };
 
-const loginPage = (req, res) => {
-  const { users } = req.app.context;
-  const { name, password } = req.cookies;
-
-  if (users.isValid({ name, password })) {
-    res.redirect(303, '/index.html');
-    return;
-  }
-
-  res.sendFile('/pages/login.html', {
-    root: 'private'
-  });
-};
-
 const login = (req, res) => {
   const { users } = req.app.context;
   const { name, password } = req.body;
@@ -37,20 +23,6 @@ const login = (req, res) => {
   }
 
   res.redirect(303, '/signup');
-};
-
-const signupPage = (req, res) => {
-  const { users } = req.app.context;
-  const { name, password } = req.cookies;
-
-  if (users.isValid({ name, password })) {
-    res.redirect(303, '/login');
-    return;
-  }
-
-  res.sendFile('/pages/signup.html', {
-    root: 'private'
-  });
 };
 
 const signup = (req, res) => {
@@ -80,11 +52,9 @@ const username = (req, res) => {
 };
 
 module.exports = {
-  authenticate,
-  signupPage,
-  loginPage,
-  signup,
   login,
+  signup,
   logout,
-  username
+  username,
+  authenticate,
 };

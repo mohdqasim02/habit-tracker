@@ -24,12 +24,6 @@ input[type="submit"] {
   background-color: var(--primary-dark);
 }
 
-header a {
-  outline: none;
-  color: black;
-  text-decoration: none;
-}
-
 form p {
   font-size: 0.7em;
 }
