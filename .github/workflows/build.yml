@@ -18,3 +18,4 @@ jobs:
     - run: npm install
     - run: npm run lint
     - run: npm run coverage
+    - run: echo "You are doing good work, keep it up"
