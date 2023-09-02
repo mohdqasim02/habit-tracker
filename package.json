@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A list of habits :",
   "main": "tracker.js",
+  "engines": {
+    "node": "^20.5.0"
+  },
   "directories": {
     "test": "test"
   },

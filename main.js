@@ -3,7 +3,7 @@ const Storage = require('./src/storage');
 const { createApp } = require('./src/app');
 const { createUsers } = require('./src/models/users');
 
-const PORT = 8001;
+const PORT = process.env.PORT || 8001;
 const USERS_FILEPATH = 'storage/user-data.json';
 
 const main = () => {
